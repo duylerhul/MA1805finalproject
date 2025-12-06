@@ -14,10 +14,14 @@ let waste = [];
 // 5 = Fast (Moves every 5th frame)
 // 10 = Normal (Moves every 10th frame)
 // 15 = Slow (Moves every 15th frame)
-let moveDelay = 4; 
+let moveDelay = 5; 
 
 let bgMusic = new Audio('music.mp3'); 
-
+// 2. LOAD THE IMAGE BEFORE GAME STARTS
+let img;
+function preload(){
+  img = loadimage("cloud.png")
+}
 function setup() {
   createCanvas(400, 400);
   
@@ -42,6 +46,8 @@ function draw() {
   
   if (frameCount % moveDelay === 0) {
       updateGameLogic();
+      image(img, 0, 0);
+}
   }
 
   // --- DRAWING ---
@@ -60,7 +66,6 @@ function draw() {
   for (let i = 0; i < waste.length; i = i + 1) {
     rect(waste[i].x, waste[i].y, size, size);
   }
-}
 
 // I moved all the movement math into this separate function
 // to keep the draw() loop clean.
