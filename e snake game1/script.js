@@ -10,12 +10,20 @@ let foodX;
 let foodY;
 let waste = []; 
 
-// Music Variable
+// This controls the speed. 
+// 5 = Fast (Moves every 5th frame)
+// 10 = Normal (Moves every 10th frame)
+// 15 = Slow (Moves every 15th frame)
+let moveDelay = 4; 
+
 let bgMusic = new Audio('music.mp3'); 
 
 function setup() {
   createCanvas(400, 400);
-  frameRate(10);
+  
+  // REMOVED: frameRate(10); 
+  // By removing that line, p5.js defaults to 60 FPS (Super Smooth)
+  
   pickFood();
 
   bgMusic.loop = true;
@@ -23,10 +31,40 @@ function setup() {
 }
 
 function draw() {
-  // --- CHANGE IS HERE ---
-  // R=0, G=0, B=100 (Dark Blue)
-  background(0, 0, 100); 
+  // 1. Draw Background (Runs 60 times a second - looks very stable)
+  background(135, 206, 235); // Sky Blue
 
+  // --- THE SMOOTH FIX ---
+  // frameCount is a p5 variable that counts up forever (1, 2, 3...)
+  // The % symbol means "Modulo" (Remainder).
+  // This line asks: "Is the frame count divisible by 8?"
+  // Result: The code inside only runs once every 8 frames.
+  
+  if (frameCount % moveDelay === 0) {
+      updateGameLogic();
+  }
+
+  // --- DRAWING ---
+  // We draw everything every single frame so it doesn't flicker
+  
+  // Draw Food (Red)
+  fill(255, 50, 50); 
+  rect(foodX, foodY, size, size);
+
+  // Draw Player (Green)
+  fill(0, 150, 0);
+  rect(x, y, size, size);
+
+  // Draw Waste (Dark Grey)
+  fill(80); 
+  for (let i = 0; i < waste.length; i = i + 1) {
+    rect(waste[i].x, waste[i].y, size, size);
+  }
+}
+
+// I moved all the movement math into this separate function
+// to keep the draw() loop clean.
+function updateGameLogic() {
   let oldX = x;
   let oldY = y;
 
@@ -51,26 +89,13 @@ function draw() {
     let newWasteBlock = createVector(oldX, oldY);
     waste.push(newWasteBlock);
   }
-
-  // Draw Food (Light Blue to contrast background)
-  fill(0, 200, 255);
-  rect(foodX, foodY, size, size);
-
-  // Draw Player (Neon Green)
-  fill(0, 255, 100);
-  rect(x, y, size, size);
-
-  // Draw Waste (Grey)
-  fill(150); 
-  for (let i = 0; i < waste.length; i = i + 1) {
-    rect(waste[i].x, waste[i].y, size, size);
-  }
 }
 
 function keyPressed() {
-  // Start music on keypress
   bgMusic.play(); 
 
+  // Since the game runs at 60FPS now, these keys 
+  // will register instantly, making it feel much better.
   if (keyCode === LEFT_ARROW) {
     speedX = -1; speedY = 0;
   } 
