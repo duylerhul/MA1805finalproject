@@ -1,3 +1,8 @@
+links that relate to my github repository and hosted version: 
+repository: https://github.com/duylerhul/MA1805finalproject
+hosted: http://127.0.0.1:5500/e%20snake%20game1/snake%20game.html
+
+
 - Description:
 E Waste Snake is an arcade style game that explores the theme of nature tech and consumerism by subverting the established mechanics of the classic Snake genre. The primary inspiration for this mechanic was the iconic Nokia Snake game(https://www.youtube.com/watch?v=1OtWJV4DcdM&t=253s)  , which I wanted to deliver a modern environmental message. While traditional games reward the player by making the snake grow longer, this project functions as a metaphor for rapid consumption,  the player controls a tech hungry consumer who collects new gadgets. Instead of growing, the player remains the same size but leaves behind a permanent trail of E-waste which is a scraps of metal every time a new phone is consumed.
 - Functionality:
